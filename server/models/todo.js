@@ -2,10 +2,6 @@ var models = require('../config/constants').models
 let mongoose = require('mongoose')
 let ObjectId = mongoose.Schema.ObjectId
 
-/**
- * List Schema
- * @type {mongoose}
- */
 var schema = new mongoose.Schema({
 	name: {
 		type: String,
@@ -15,8 +11,8 @@ var schema = new mongoose.Schema({
 		type: String
 	},
 	created: {
-		type: String,
-		default: new Date()
+		type: Number,
+		default: Date.now()
 	},
 	// Relations
 	creatorId: {
@@ -24,13 +20,11 @@ var schema = new mongoose.Schema({
 		ref: models.user.name,
 		required: true
 	},
-	boardId: {
+	listId: {
 		type: ObjectId,
-		ref: models.board,
+		ref: models.list,
 		required: true
 	}
 });
 
-//59a5c26bf9a24f6fb38d0827
-
-module.exports = mongoose.model(models.list.name, schema);
+module.exports = mongoose.model(models.todo.name, schema);

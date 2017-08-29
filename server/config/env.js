@@ -1,12 +1,12 @@
 // LOCAL DEV VARIABLES
 let env = {
 	NODE_ENV: 'development',
-	PORT: 3000,
+	PORT: 4050,
 	DBPROTOCOL: 'mongodb',
-	DBUSERNAME: 'student',
-	DBPASSWORD: 'CodeWorksStudent',
-	DBHOST: 'ds056789.mlab.com:56789',
-	DBNAME: 'codeworks',
+	DBUSERNAME: 'kanbanpublic',
+	DBPASSWORD: 'PQwQOwWQ3VUrLeh9y7bQDZ5KhdStoT4VBTmrV8MuBnAEWCZjmF',
+	DBHOST: 'ds151963.mlab.com:51963',
+	DBNAME: 'continue',
 	SERVERNAME: 'dev-server'
 }
 

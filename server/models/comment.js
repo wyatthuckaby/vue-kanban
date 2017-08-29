@@ -2,16 +2,8 @@ var models = require('../config/constants').models
 let mongoose = require('mongoose')
 let ObjectId = mongoose.Schema.ObjectId
 
-/**
- * List Schema
- * @type {mongoose}
- */
 var schema = new mongoose.Schema({
-	name: {
-		type: String,
-		required: true
-	},
-	description: {
+	text: {
 		type: String
 	},
 	created: {
@@ -24,13 +16,13 @@ var schema = new mongoose.Schema({
 		ref: models.user.name,
 		required: true
 	},
-	boardId: {
+	todoId: {
 		type: ObjectId,
-		ref: models.board,
+		ref: models.todo,
 		required: true
 	}
 });
 
-//59a5c26bf9a24f6fb38d0827
 
-module.exports = mongoose.model(models.list.name, schema);
+
+module.exports = mongoose.model(models.comment.name, schema);

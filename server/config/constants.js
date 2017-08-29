@@ -13,7 +13,18 @@ const models = {
   },
   list: {
     name: 'List',
-    endpoint: 'lists'
+    endpoint: 'lists',
+    useCustomRoutes: true
+  },
+  todo: {
+    name: 'Todo',
+    endpoint: 'todos',
+    useCustomRoutes: true
+  },
+  comment: {
+    name: 'Comment',
+    endpoint: 'comments',
+    useCustomRoutes: true
   },
   user: {
     name: 'User',

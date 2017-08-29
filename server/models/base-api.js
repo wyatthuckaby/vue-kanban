@@ -3,7 +3,9 @@ var actions = require('../config/constants').actions
 module.exports = API
 
 function API(model, schema) {
-  if (model.preventDefaultApi) { return {} }
+  if (model.preventDefaultApi) {
+    return {}
+  }
   return {
     get: get,
     post: create,
@@ -47,7 +49,7 @@ function API(model, schema) {
 
     let model = new schema(req.body)
     model.creatorId = req.session.uid
-    
+
     model.save()
       .then(data => {
         return res.send(handleResponse(action, data))
@@ -62,12 +64,20 @@ function API(model, schema) {
     var id = req.params.id || req.query.id || '';
 
     if (!id) {
-      return next(handleResponse(action, null, { error: { message: 'Invalid request no id provided' } }))
+      return next(handleResponse(action, null, {
+        error: {
+          message: 'Invalid request no id provided'
+        }
+      }))
     }
 
-    schema.findOneAndUpdate({ _id: id }, req.body)
+    schema.findOneAndUpdate({
+        _id: id
+      }, req.body)
       .then(data => {
-        return res.send(handleResponse(action, { message: 'Successfully updated' }))
+        return res.send(handleResponse(action, {
+          message: 'Successfully updated'
+        }))
       })
       .catch(error => {
         return next(handleResponse(action, null, error))
@@ -79,12 +89,18 @@ function API(model, schema) {
     var id = req.params.id || req.query.id || '';
 
     if (!id) {
-      return next(handleResponse(action, null, { error: { message: 'Invalid request no id provided' } }))
+      return next(handleResponse(action, null, {
+        error: {
+          message: 'Invalid request no id provided'
+        }
+      }))
     }
 
-    schema.findOneAndRemove({ _id: id }).then(function (data) {
-      return res.send(handleResponse(action, data))
-    })
+    schema.findOneAndRemove({
+        _id: id
+      }).then(function(data) {
+        return res.send(handleResponse(action, data))
+      })
       .catch(error => {
         return next(handleResponse(action, null, error))
       })
