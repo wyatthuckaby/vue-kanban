@@ -1,16 +1,16 @@
-var Todos = require('../models/todo');
+var Lists = require('../models/list');
 
 module.exports = {
-        listTodos: {
+        boardLists: {
             //path: 'board/:boardId/lists/:listId/todos/:todoId/comments'
-            path: '/listtodos/:id',
+            path: '/boardlists/:id',
             reqType: 'get',
             method(req, res, next) {
-                var action = 'find list todos';
+                var action = 'find board lists';
                 //console.log (req);
-                Todos.find({ listId: req.params.id })
-                    .then((todos) => {
-                        res.send(handleResponse(action, todos));
+                Lists.find({ boardId: req.params.id })
+                    .then((lists) => {
+                        res.send(handleResponse(action, lists));
                     }).catch((error) => {
                         return next(handleResponse(action, null, error));
                     });

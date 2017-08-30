@@ -9,7 +9,8 @@ const actions = {
 const models = {
   board: {
     name: 'Board',
-    endpoint: 'boards'
+    endpoint: 'boards',
+    useCustomRoutes: true
   },
   list: {
     name: 'List',
@@ -23,8 +24,7 @@ const models = {
   },
   comment: {
     name: 'Comment',
-    endpoint: 'comments',
-    useCustomRoutes: true
+    endpoint: 'comments'
   },
   user: {
     name: 'User',
