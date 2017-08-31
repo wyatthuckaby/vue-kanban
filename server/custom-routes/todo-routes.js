@@ -3,11 +3,11 @@ var Comments = require('../models/comment');
 module.exports = {
         listComments: {
             //path: 'board/:boardId/lists/:listId/todos/:todoId/comments'
-            path: '/listcomments/:id',
+            path: '/todocomments/:id',
             reqType: 'get',
             method(req, res, next) {
                 var action = 'find todo comments';
-                //console.log (req);
+                console.log ("Comment",req);
                 Comments.find({ todoId: req.params.id })
                     .then((comments) => {
                         res.send(handleResponse(action, comments));

@@ -1,20 +1,31 @@
 <template>
   <div> 
-    Active Board: {{board}}
+    Active Board: {{board.name}}
+
+      <list></list>
+    </div>
   </div>
 </template>
 
 <script>
+import list from "./List"
 export default {
   name: 'board',
+  components: {
+    list
+  },
   mounted(){
-    this.$root.$store.dispatch('getBoard',this.$route.params.id)
+    this.$store.dispatch('getBoard',this.$route.params.id)
+    //this.$store.dispatch('getLists',this.$route.params.id)
+  },
+  methods: {
   },
   computed:{
     board(){
       return this.$store.state.activeBoard
     }
-  }
+
+  },
 }
 </script>
 
