@@ -2,7 +2,7 @@ let Boards = require('../models/board')
 
 module.exports = {
   userBoards: {
-    path: '/userboards',
+    path: '/boards/user/boards',
     reqType: 'get',
     method(req, res, next) {
       let action = 'Find User Boards'
@@ -10,6 +10,7 @@ module.exports = {
           creatorId: req.session.uid
         })
         .then(boards => {
+          console.log("BOARDS", boards);
           res.send(handleResponse(action, boards))
         }).catch(error => {
           return next(handleResponse(action, null, error))
@@ -17,7 +18,7 @@ module.exports = {
     }
   },
   sharedBoards: {
-    path: '/sharedBoards',
+    path: '/boards/share/boards',
     reqType: 'get',
     method(req, res, next) {
       Boards.find({

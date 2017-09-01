@@ -3,7 +3,7 @@ var Lists = require('../models/list');
 module.exports = {
         boardLists: {
             //path: 'board/:boardId/lists/:listId/todos/:todoId/comments'
-            path: '/boardlists/:id',
+            path: '/boards/:id/lists',
             reqType: 'get',
             method(req, res, next) {
                 var action = 'find board lists';

@@ -3,7 +3,7 @@ var Todos = require('../models/todo');
 module.exports = {
         listTodos: {
             //path: 'board/:boardId/lists/:listId/todos/:todoId/comments'
-            path: '/listtodos/:id',
+            path: '/lists/:id/todos',
             reqType: 'get',
             method(req, res, next) {
                 var action = 'find list todos';
