@@ -1,5 +1,5 @@
 <template>
-  <div> 
+  <div class="row"> 
     Active Board: {{board.name}}
 
       <list></list>
