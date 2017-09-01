@@ -4,7 +4,7 @@
       List : {{vandetta.name}}
       <todo :listid="vandetta._id"></todo> 
     </div>
-  </div>
+  </div> 
 </template>
 
 <script>
