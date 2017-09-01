@@ -37,13 +37,7 @@
       }
     },
     methods: {
-      click() {
-        if (this.clicked == false) {
-          this.clicked = true
-        } else {
-          this.clicked = false
-        }
-      },
+
       removeBoard(board) {
         this.$store.dispatch('removeBoard', board)
       }

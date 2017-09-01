@@ -45,7 +45,7 @@
         },
         methods: {
             signup(){
-                this.$store.dispatch('login',this.signupInfo)
+                this.$store.dispatch('register',this.signupInfo)
             }
         }
     }
