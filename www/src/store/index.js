@@ -65,7 +65,8 @@ var store = new vuex.Store({
       commit,
       dispatch
     }, id) {
-      api('boardlists/' + id)
+      // api('boardlists/' + id)
+      api(`boards/${id}/lists`)
         .then(res => {
 
           commit('setLists', res.data.data)
@@ -78,7 +79,8 @@ var store = new vuex.Store({
       commit,
       dispatch
     }, id) {
-      api('listtodos/' + id)
+      // api('listtodos/' + id)
+      api(`/lists/${id}/todos`)
         .then(res => {
           console.log("store list todos", res);
           res.data.listId = id
@@ -92,7 +94,7 @@ var store = new vuex.Store({
       commit,
       dispatch
     }, id) {
-      api('todocomments/' + id)
+      api(`/todos/${id}/comments`)
         .then(res => {
           res.data.todoId = id;
           commit('setComments', res.data.data)
@@ -138,6 +140,7 @@ var store = new vuex.Store({
           commit('handleError', err)
         })
     },
+
     handleError({
       commit,
       dispatch
