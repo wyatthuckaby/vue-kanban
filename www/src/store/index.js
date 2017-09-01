@@ -23,6 +23,8 @@ var store = new vuex.Store({
     lists: [],
     todos: {},
     comments: {},
+    user: {},
+    loggedIn: {}
   },
   mutations: {
     setBoards(state, data) {
@@ -41,9 +43,12 @@ var store = new vuex.Store({
       //state.todos[data.listId] = data.data
       vue.set(state.todos, data.listId, data.data);
     },
-    setComments(state, data){
+    setComments(state, data) {
       // state.comments[data.todoId] = data.data
       vue.set(state.comments, data.todoId, data);
+    },
+    setLoggedIn(state, data) {
+      vue.set(state.loggedIn, data);
     }
   },
   actions: {
@@ -61,6 +66,8 @@ var store = new vuex.Store({
           commit('handleError', err)
         })
     },
+
+
     getLists({
       commit,
       dispatch
@@ -75,6 +82,8 @@ var store = new vuex.Store({
           commit('handleError', err)
         })
     },
+
+
     getTodos({
       commit,
       dispatch
@@ -90,6 +99,8 @@ var store = new vuex.Store({
           commit('handleError', err)
         })
     },
+
+
     getComments({
       commit,
       dispatch
@@ -103,6 +114,8 @@ var store = new vuex.Store({
           commit('handleError', err)
         })
     },
+
+
     getBoard({
       commit,
       dispatch
@@ -110,12 +123,14 @@ var store = new vuex.Store({
       api('boards/' + id)
         .then(res => {
           commit('setActiveBoard', res.data.data)
-          
+
         })
         .catch(err => {
           commit('handleError', err)
         })
     },
+
+
     createBoard({
       commit,
       dispatch
@@ -128,6 +143,8 @@ var store = new vuex.Store({
           commit('handleError', err)
         })
     },
+
+
     removeBoard({
       commit,
       dispatch
@@ -139,6 +156,45 @@ var store = new vuex.Store({
         .catch(err => {
           commit('handleError', err)
         })
+    },
+
+
+    login({
+      commit,
+      dispatch
+    }, user) {
+      auth.post('/login', user)
+        .then((res) => {
+          commit("setLoggedIn", res.data.data);
+        })
+        .catch(err => {
+          commit('handleError', err)
+        })
+    },
+
+
+
+    register({
+      commit,
+      dispach
+    }, user) {
+      auth.post('/register', user)
+        .then((res) => {
+          if (res.data.message == "Successfully created user account") {
+            commit("setLoggedIn", res.data.data);
+          }
+        })
+        .catch(err => {
+          commit('handleError', err)
+        })
+    },
+
+    authenticate({commit, dispach}, user){
+      auth.get('/authenticate').then((res) => {
+        if (res.data.error){
+          commit ("setLoggedIn", {});
+        } else commit("setLoggedIn", res.data.data)
+      })
     },
 
     handleError({

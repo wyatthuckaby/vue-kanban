@@ -20,9 +20,9 @@ let schema = new Schema({
     required: true
   },
   created: {
-    type: Number,
+    type: String,
     required: true,
-    default: Date.now()
+    default: new Date()
   }
 })
 
