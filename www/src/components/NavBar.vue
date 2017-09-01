@@ -16,13 +16,21 @@
                     <p>Kanban</p>
                 </a>
 
-                <form class="align-things">
-                    <input v-model="login.email" class="form-control" type="text" name="usernameBox" placeholder="Email">
-                    <input v-model="login.password" class="form-control" type="password" name="passwordBox" placeholder="Password">
-                    <button class="btn btn-primary" type="submit">Login</button>
-                </form>
+                <div>
+                    <div v-if="user.name != null">
+                        {{user.name}}
+                        <span class="btn btn-primary" @click="logout">Logout</span>
+                    </div>
+                    <div v-else class="align-things">
+                        <form @submit.prevent="login" class="align-things">
+                            <input v-model="loginInfo.email" class="form-control" type="text" placeholder="Email">
+                            <input v-model="loginInfo.password" class="form-control" type="password" placeholder="Password">
+                            <button class="btn btn-primary" type="submit">Login</button>
+                        </form>
+                        <router-link class="btn btn-primary" :to="{name: 'SignUp'}">Sign Up</router-link>
+                    </div>
+                </div>
 
-                <router-link class="btn btn-primary" :to="{name: 'SignUp'}">Sign Up</router-link>
 
             </div>
         </nav>
@@ -44,12 +52,23 @@
         },
         methods: {
             login() {
-                this.$store.dispatch('login',this.loginInfo)
+                this.$store.dispatch('login', JSON.parse(JSON.stringify(this.loginInfo)));
+                this.loginInfo = {
+                    email: "",
+                    password: ""
+                }
+            },
+            logout() {
+                this.$store.dispatch('logout');
             }
+        },
+        mounted() {
+            this.$store.dispatch('authenticate')
         },
         computed: {
             user() {
-                return this.$store.state.user.name
+                console.log("user comp", this.$store.state.loggedIn)
+                return this.$store.state.loggedIn
             }
         }
     }

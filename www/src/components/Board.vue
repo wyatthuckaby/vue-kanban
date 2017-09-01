@@ -6,7 +6,7 @@
 
     <div v-if="this.clicked">
       <h3>Create New List</h3>
-      <form class="my-form">
+      <form @submit.prevent="createBoard" class="my-form">
         <input class="form-control" type="text" placeholder="Title">
         <input class="form-control" type="text" placeholder="Description">
         <button type="submit" class="btn btn-success" @click="click">Create</button>
@@ -15,7 +15,6 @@
     </div>
 
     <list></list>
-  </div>
   </div>
 </template>
 
@@ -28,19 +27,17 @@
     },
     data() {
       return {
-        clicked: false
+        clicked: false,
+        
       }
     },
     mounted() {
       this.$store.dispatch('getBoard', this.$route.params.id)
       //this.$store.dispatch('getLists',this.$route.params.id)
     },
-    methods: {      click() {
-        if (this.clicked == false) {
-          this.clicked = true
-        } else {
-          this.clicked = false
-        }
+    methods: {      
+      click() {
+        this.clicked = !this.clicked;
       }
     },
     computed: {

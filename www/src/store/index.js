@@ -48,7 +48,8 @@ var store = new vuex.Store({
       vue.set(state.comments, data.todoId, data);
     },
     setLoggedIn(state, data) {
-      vue.set(state.loggedIn, data);
+      console.log(data)
+      state.loggedIn= data;
     }
   },
   actions: {
@@ -137,7 +138,7 @@ var store = new vuex.Store({
     }, board) {
       api.post('boards/', board)
         .then(res => {
-          dispatch('getBoards')
+          dispatch('setBoards', res.data.data)
         })
         .catch(err => {
           commit('handleError', err)
@@ -166,6 +167,7 @@ var store = new vuex.Store({
       auth.post('/login', user)
         .then((res) => {
           commit("setLoggedIn", res.data.data);
+          console.log(res)
         })
         .catch(err => {
           commit('handleError', err)
@@ -189,6 +191,15 @@ var store = new vuex.Store({
         })
     },
 
+    logout({
+      commit,
+      dispatch
+    }){
+      auth.delete('/logout')
+      .then((res)=>{
+        commit("setLoggedIn", {})
+      })
+    },
     authenticate({commit, dispach}, user){
       auth.get('/authenticate').then((res) => {
         if (res.data.error){

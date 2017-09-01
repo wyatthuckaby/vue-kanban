@@ -4,9 +4,9 @@
 
     <div v-if="this.clicked">
       <h3>Create New Board</h3>
-      <form class="my-form">
-        <input class="form-control" type="text" placeholder="Title">
-        <input class="form-control" type="text" placeholder="Description">
+      <form @submit.prevent="createBoard" class="my-form">
+        <input v-model="boardInfo.name" class="form-control" type="text" placeholder="Title">
+        <input v-model="boardInfo.description" class="form-control" type="text" placeholder="Description">
         <button type="submit" class="btn btn-success" @click="click">Create</button>
         <button type="button" class="btn btn-danger" @click="click">Cancel</button>
       </form>
@@ -25,7 +25,11 @@
     name: 'boards',
     data() {
       return {
-        clicked: false
+        clicked: false,
+        boardInfo: {
+          name: "",
+          description: ""
+        }
       }
     },
     mounted() {
@@ -46,6 +50,13 @@
       },
       removeBoard(board) {
         this.$store.dispatch('removeBoard', board)
+      },
+      createBoard() {
+        this.$store.dispatch('createBoard', this.boardInfo)
+        this.boardInfo = {
+          name: "",
+          description: ""
+        }
       }
     }
   }
