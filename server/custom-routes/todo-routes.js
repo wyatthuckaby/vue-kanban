@@ -3,7 +3,7 @@ var Comments = require('../models/comment');
 module.exports = {
         listComments: {
             //path: 'board/:boardId/lists/:listId/todos/:todoId/comments'
-            path: '/todocomments/:id',
+            path: '/todos/:id/comments',
             reqType: 'get',
             method(req, res, next) {
                 var action = 'find todo comments';
