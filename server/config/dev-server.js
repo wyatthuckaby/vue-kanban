@@ -8,6 +8,8 @@ var api = require('../models')
 var session = require('../authentication/sessions')
 var Auth = require('../authentication/auth')
 
+var timeout = require('connect-timeout');
+
 // ENABLE ROUTES IF USING app SIDE ROUTING
 // import routes from './routes'
 
@@ -27,6 +29,7 @@ function logger(req, res, next) {
     //console.log('INCOMING REQUEST', req.url)
     next()
 }
+
 
 // REGISTER MIDDLEWARE
 app.use(session)
