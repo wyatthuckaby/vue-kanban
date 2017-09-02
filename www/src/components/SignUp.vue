@@ -1,7 +1,7 @@
 <template>
     <div>
         <h3>Create Account</h3>
-        <form @submit="signup">
+        <form @submit.prevent="signup">
             <div class="row align-things">
                 <label class="col-sm-2 col-form-label">Name:</label>
                 <div class="col-sm-10">
@@ -45,7 +45,7 @@
         },
         methods: {
             signup(){
-                this.$store.dispatch('register',this.signupInfo)
+                this.$store.dispatch('register', this.signupInfo)
             }
         }
     }

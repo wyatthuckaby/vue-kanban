@@ -7,7 +7,7 @@
       <form @submit.prevent="createBoard" class="my-form">
         <input v-model="boardInfo.name" class="form-control" type="text" placeholder="Title">
         <input v-model="boardInfo.description" class="form-control" type="text" placeholder="Description">
-        <button type="submit" class="btn btn-success" @click="click">Create</button>
+        <button type="submit" class="btn btn-success">Create</button>
         <button type="button" class="btn btn-danger" @click="click">Cancel</button>
       </form>
     </div>
@@ -42,17 +42,14 @@
     },
     methods: {
       click() {
-        if (this.clicked == false) {
-          this.clicked = true
-        } else {
-          this.clicked = false
-        }
+        this.clicked = !this.clicked
       },
       removeBoard(board) {
         this.$store.dispatch('removeBoard', board)
       },
       createBoard() {
         this.$store.dispatch('createBoard', this.boardInfo)
+        this.click()
         this.boardInfo = {
           name: "",
           description: ""

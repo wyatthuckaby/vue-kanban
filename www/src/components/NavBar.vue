@@ -53,6 +53,7 @@
         methods: {
             login() {
                 this.$store.dispatch('login', JSON.parse(JSON.stringify(this.loginInfo)));
+                this.$store.dispatch('getBoards')
                 this.loginInfo = {
                     email: "",
                     password: ""

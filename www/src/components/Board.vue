@@ -6,10 +6,10 @@
 
     <div v-if="this.clicked">
       <h3>Create New List</h3>
-      <form @submit.prevent="createBoard" class="my-form">
-        <input class="form-control" type="text" placeholder="Title">
-        <input class="form-control" type="text" placeholder="Description">
-        <button type="submit" class="btn btn-success" @click="click">Create</button>
+      <form @submit.prevent="createList" class="my-form">
+        <input v-model="listInfo.name" class="form-control" type="text" placeholder="Title">
+        <input v-model="listInfo.description" class="form-control" type="text" placeholder="Description">
+        <button type="submit" class="btn btn-success">Create</button>
         <button type="button" class="btn btn-danger" @click="click">Cancel</button>
       </form>
     </div>
@@ -28,21 +28,30 @@
     data() {
       return {
         clicked: false,
-        
+        listInfo: {
+          name: "",
+          description: ""
+        }
       }
     },
     mounted() {
       this.$store.dispatch('getBoard', this.$route.params.id)
-      //this.$store.dispatch('getLists',this.$route.params.id)
+      this.$store.dispatch('getLists',this.$route.params.id)
     },
     methods: {      
       click() {
         this.clicked = !this.clicked;
+      },
+      createList(){
+        this.$store.dispatch('createList', this.listInfo)
       }
     },
     computed: {
       board() {
         return this.$store.state.activeBoard
+      },
+      lists() {
+        return this.$store.state.lists
       }
 
     },

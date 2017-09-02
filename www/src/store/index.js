@@ -59,7 +59,7 @@ var store = new vuex.Store({
       commit,
       dispatch
     }) {
-      api('boards')
+      api('boards/user/boards')
         .then(res => {
           commit('setBoards', res.data.data)
         })
@@ -138,13 +138,26 @@ var store = new vuex.Store({
     }, board) {
       api.post('boards/', board)
         .then(res => {
-          dispatch('setBoards', res.data.data)
+          dispatch('getBoards')
         })
         .catch(err => {
           commit('handleError', err)
         })
     },
 
+
+    createList({
+      commit,
+      dispatch
+    }, list){
+      api.post('lists/', list)
+      .then((res)=>{
+        dispatch('getLists')
+      })
+      .catch(err => {
+        commit('handleError', err)
+      })
+    },
 
     removeBoard({
       commit,

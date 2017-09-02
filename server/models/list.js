@@ -26,7 +26,7 @@ var schema = new mongoose.Schema({
 	},
 	boardId: {
 		type: ObjectId,
-		ref: models.board,
+		ref: models.board._id,
 		required: true
 	}
 });
