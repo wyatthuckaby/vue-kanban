@@ -2,15 +2,16 @@ import axios from 'axios'
 import vue from 'vue'
 import vuex from 'vuex'
 
+var secondTimeout = 30;
 let api = axios.create({
   baseURL: 'http://localhost:4050/api/',
-  timeout: 7000,
+  timeout: secondTimeout * 1000,
   withCredentials: true
 })
 
 let auth = axios.create({
   baseURL: 'http://localhost:4050/',
-  timeout: 7000,
+  timeout: secondTimeout * 1000,
   withCredentials: true
 })
 vue.use(vuex)
@@ -48,7 +49,7 @@ var store = new vuex.Store({
       vue.set(state.comments, data.todoId, data);
     },
     setLoggedIn(state, data) {
-      console.log(data)
+     // console.log(data)
       state.loggedIn = data;
     }
   },
@@ -74,9 +75,10 @@ var store = new vuex.Store({
       dispatch
     }, id) {
       // api('boardlists/' + id)
+      console.log('LISTS_ID', id);
       api(`boards/${id}/lists`)
         .then(res => {
-          console.log(res.data.data)
+          console.log('LISTS',res.data.data)
           commit('setLists', res.data.data)
         })
         .catch(err => {
@@ -92,7 +94,7 @@ var store = new vuex.Store({
       // api('listtodos/' + id)
       api(`/lists/${id}/todos`)
         .then(res => {
-          console.log("store list todos", res);
+         // console.log("store list todos", res);
           res.data.listId = id
           commit('setTodos', res.data)
         })
@@ -108,7 +110,7 @@ var store = new vuex.Store({
       api.post('todos/', todo)
         .then((res) => {
           console.log("create todo:", res)
-          dispatch('getTodos')
+          dispatch('getTodos', res.data.data.listId);
         })
         .catch(err => {
           commit('handleError', err)
@@ -165,7 +167,7 @@ var store = new vuex.Store({
     }, list) {
       api.post('lists/', list)
         .then((res) => {
-          console.log("createlist:", res)
+          //console.log("createlist:", res)
           dispatch('getLists', res.data.data.boardId)
         })
         .catch(err => {
@@ -177,10 +179,10 @@ var store = new vuex.Store({
       commit,
       dispatch
     }, list){
-
+      // console.log(list);
       api.delete(`/lists/${list._id}`)
       .then((res) => {
-        dispach('getLists', list.boardId)
+        dispatch('getLists', list.boardId)
       })
       .catch((err) => {
         commit('handleError', err);
@@ -195,7 +197,7 @@ var store = new vuex.Store({
     }, todo){
       api.delete(`/todos/${todo._id}`)
       .then((res) => {
-        dispach('getTodos', todo.listId)
+        dispatch('getTodos', todo.listId)
       })
       .catch((err) => {
         commit('handleError', err);
@@ -224,7 +226,7 @@ var store = new vuex.Store({
       auth.post('/login', user)
         .then((res) => {
           commit("setLoggedIn", res.data.data);
-          console.log(res)
+          //console.log(res)
         })
         .catch(err => {
           commit('handleError', err)
