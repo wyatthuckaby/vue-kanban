@@ -11,7 +11,7 @@
             <span @click="deleteList({_id: list._id, boardId: list.boardId})" class="glyphicon glyphicon-remove-sign"></span>
           </div>
         </div>
-        <form @sumbit.prevent="createTodo(list._id)">
+        <form @submit.prevent="createTodo(list._id)">
           <div class="align-things">
             <input v-model="todoInfo.name" class="form-control" placeholder="New Task" type="text">
             <input v-model="todoInfo.description" class="form-control" placeholder="Description" type="text">
