@@ -8,7 +8,6 @@ var api = require('../models')
 var session = require('../authentication/sessions')
 var Auth = require('../authentication/auth')
 
-var timeout = require('connect-timeout');
 
 // ENABLE ROUTES IF USING app SIDE ROUTING
 // import routes from './routes'
@@ -25,17 +24,17 @@ function Validate(req, res, next) {
     return next()
 }
 
-function logger(req, res, next) {
-    //console.log('INCOMING REQUEST', req.url)
-    next()
-}
+// function logger(req, res, next) {
+//     //console.log('INCOMING REQUEST', req.url)
+//     next()
+// }
+//app.use('*', logger)
 
 
 // REGISTER MIDDLEWARE
 app.use(session)
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-app.use('*', logger)
 app.use('*', cors(corsOptions))
 app.use('/', Auth)
 

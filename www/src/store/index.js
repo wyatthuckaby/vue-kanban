@@ -173,6 +173,35 @@ var store = new vuex.Store({
         })
     },
 
+    removeList({
+      commit,
+      dispatch
+    }, id){
+      api.delete(`/api/lists/${id}`)
+      .then((res) => {
+        dispach('getLists', res.data.data.boardId)
+      })
+      .catch((err) => {
+        commit('handleError', err);
+      })
+    },
+
+
+
+    removeTodo({
+      commit,
+      dispatch
+    }, id){
+      api.delete(`/api/todos/${id}`)
+      .then((res) => {
+        dispach('getTodos', res.data.data.listId)
+      })
+      .catch((err) => {
+        commit('handleError', err);
+      })
+    },
+
+
     removeBoard({
       commit,
       dispatch
