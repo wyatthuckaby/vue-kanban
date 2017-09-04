@@ -10,7 +10,7 @@ let api = axios.create({
 
 let auth = axios.create({
   baseURL: 'http://localhost:4050/',
-  timeout: 2000,
+  timeout: 7000,
   withCredentials: true
 })
 vue.use(vuex)
@@ -49,7 +49,7 @@ var store = new vuex.Store({
     },
     setLoggedIn(state, data) {
       console.log(data)
-      state.loggedIn= data;
+      state.loggedIn = data;
     }
   },
   actions: {
@@ -101,6 +101,19 @@ var store = new vuex.Store({
         })
     },
 
+    createTodo({
+      commit,
+      dispatch
+    }, todo) {
+      api.post('todos/', todo)
+        .then((res) => {
+          console.log("create todo:", res)
+          dispatch('getTodos', res.data.data.todoId)
+        })
+        .catch(err => {
+          commit('handleError', err)
+        })
+    },
 
     getComments({
       commit,
@@ -149,15 +162,15 @@ var store = new vuex.Store({
     createList({
       commit,
       dispatch
-    }, list){
+    }, list) {
       api.post('lists/', list)
-      .then((res)=>{
-        console.log("createlist:", res)
-        dispatch('getLists', JSON.parse(res.data.data.boarId))
-      })
-      .catch(err => {
-        commit('handleError', err)
-      })
+        .then((res) => {
+          console.log("createlist:", res)
+          dispatch('getLists', JSON.parse(res.data.data.boarId))
+        })
+        .catch(err => {
+          commit('handleError', err)
+        })
     },
 
     removeBoard({
@@ -208,16 +221,16 @@ var store = new vuex.Store({
     logout({
       commit,
       dispatch
-    }){
+    }) {
       auth.delete('/logout')
-      .then((res)=>{
-        commit("setLoggedIn", {})
-      })
+        .then((res) => {
+          commit("setLoggedIn", {})
+        })
     },
-    authenticate({commit, dispach}, user){
+    authenticate({ commit, dispach }, user) {
       auth.get('/authenticate').then((res) => {
-        if (res.data.error){
-          commit ("setLoggedIn", {});
+        if (res.data.error) {
+          commit("setLoggedIn", {});
         } else commit("setLoggedIn", res.data.data)
       })
     },

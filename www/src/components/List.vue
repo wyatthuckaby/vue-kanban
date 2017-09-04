@@ -7,7 +7,8 @@
         <form @sumbit.prevent="createTodo">
           <div class="align-things">
             <input v-model="todoInfo.name" class="form-control" placeholder="New Task" type="text">
-            <span class="glyphicon glyphicon-plus-sign"></span>
+            <input v-model="todoInfo.description" class="form-control" placeholder="Description" type="text">
+            <button type="submit" class="glyphicon glyphicon-plus-sign"></button>
           </div>
         </form>
         <todo :listid="list._id"></todo>
@@ -38,7 +39,7 @@
     },
     methods: {
       createTodo(){
-        this.$store.dispatch('createTodos', this.todoInfo)
+        this.$store.dispatch('createTodo', this.todoInfo)
       }
     },
     computed: {
