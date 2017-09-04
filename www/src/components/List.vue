@@ -2,8 +2,15 @@
   <div class="row">
     <div class="col-xs-3 list-outer" v-for="list in lists">
       <div class="my-list">
-        <h4>{{list.name}}</h4>
-        <h5>{{list.description}}</h5>
+        <div class="row">
+          <div class="col-xs-10">
+            <h4>{{list.name}}</h4>
+            <h5>{{list.description}}</h5>
+          </div>
+          <div class="col-xs-2">
+            <span @click="deleteList(list._id)" class="glyphicon glyphicon-remove-sign"></span>
+          </div>
+        </div>
         <form @sumbit.prevent="createTodo">
           <div class="align-things">
             <input v-model="todoInfo.name" class="form-control" placeholder="New Task" type="text">
@@ -40,6 +47,9 @@
     methods: {
       createTodo(){
         this.$store.dispatch('createTodo', this.todoInfo)
+      },
+      deleteList(id){
+        this.$store.dispatch('removeList', id)
       }
     },
     computed: {
@@ -63,7 +73,10 @@
     margin-top: 25px;
     margin-bottom: 25px;
   }
-  .glyphicon {
+  .glyphicon-plus-sign {
     color: #5cb85c;
+  }
+  .glyphicon-remove-sign {
+    color: red;
   }
 </style>
