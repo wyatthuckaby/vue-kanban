@@ -4,7 +4,7 @@ import vuex from 'vuex'
 
 let api = axios.create({
   baseURL: 'http://localhost:4050/api/',
-  timeout: 2000,
+  timeout: 7000,
   withCredentials: true
 })
 
@@ -108,7 +108,7 @@ var store = new vuex.Store({
       api.post('todos/', todo)
         .then((res) => {
           console.log("create todo:", res)
-          dispatch('getTodos', res.data.data.todoId)
+          dispatch('getTodos')
         })
         .catch(err => {
           commit('handleError', err)
@@ -166,7 +166,7 @@ var store = new vuex.Store({
       api.post('lists/', list)
         .then((res) => {
           console.log("createlist:", res)
-          dispatch('getLists', JSON.parse(res.data.data.boarId))
+          dispatch('getLists', res.data.data.boardId)
         })
         .catch(err => {
           commit('handleError', err)
