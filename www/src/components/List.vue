@@ -8,7 +8,7 @@
             <h5>{{list.description}}</h5>
           </div>
           <div class="col-xs-2">
-            <span @click="deleteList(list._id)" class="glyphicon glyphicon-remove-sign"></span>
+            <span @click="deleteList({_id: list._id, boardId: list.boardId})" class="glyphicon glyphicon-remove-sign"></span>
           </div>
         </div>
         <form @sumbit.prevent="createTodo">
@@ -48,8 +48,8 @@
       createTodo(){
         this.$store.dispatch('createTodo', this.todoInfo)
       },
-      deleteList(id){
-        this.$store.dispatch('removeList', id)
+      deleteList(list){
+        this.$store.dispatch('removeList', list)
       }
     },
     computed: {
