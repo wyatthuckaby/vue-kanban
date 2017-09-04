@@ -131,6 +131,18 @@ var store = new vuex.Store({
         })
     },
 
+    createComment({
+      commit,
+      dispatch
+    }, comment){
+      api.post('/comments', comment)
+      .then((res) => {
+        dispatch('getComments', comment.todoId);
+      })
+      .catch((err) => {
+        commit('handleError', err);
+      })
+    },
 
     getBoard({
       commit,
@@ -197,7 +209,7 @@ var store = new vuex.Store({
     }, todo){
       api.delete(`/todos/${todo._id}`)
       .then((res) => {
-        dispatch('getTodos', todo.listId)
+        dispatch('getTodos', todo.ListId)
       })
       .catch((err) => {
         commit('handleError', err);

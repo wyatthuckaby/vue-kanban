@@ -5,8 +5,15 @@
 				Todo: {{todo.name}}
 			</div>
 			<div class="col-xs-2">
-				<span @click="deleteTodo({_id: todo._id, ListId: todo.todoId})" class="glyphicon glyphicon-remove-sign"></span>
+				<span @click="deleteTodo({_id: todo._id, ListId: todo.listId})" class="glyphicon glyphicon-remove-sign"></span>
 			</div>
+			<br>
+	        <form @submit.prevent="submitComment(todo._id)">
+	          <div class="align-things">
+	            <input v-model="comment.text" class="form-control" placeholder="Comment" type="text">
+	            <button type="submit" class="glyphicon glyphicon-plus-sign"></button>
+	          </div>
+	        </form>
 			<comment v-if="todo._id === activeId" :todoid="todo._id"></comment>
 		</div>
 
@@ -24,7 +31,10 @@
 		props: ["listid"],
 		data: function () {
 			return {
-				activeId: ""
+				activeId: "",
+				comment: {
+					text: ""
+				}
 			}
 		},
 		mounted() {
@@ -35,8 +45,15 @@
 				this.activeId = id;
 				this.$store.dispatch('getComments', id)
 			},
-		deleteTodo(todo) {
+			deleteTodo(todo) {
 				this.$store.dispatch('removeTodo', todo)
+			},
+			submitComment(id){
+				var commentObj = {
+					todoId: id,
+					text: this.comment.text
+				}
+				this.$store.dispatch('createComment', commentObj);
 			}
 		},
 		computed: {

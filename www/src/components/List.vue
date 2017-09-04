@@ -4,7 +4,7 @@
       <div class="my-list">
         <div class="row">
           <div class="col-xs-10">
-            <h4>{{list.name}}</h4>
+            <h4 :id="list._id" @click="toggleCreateTodo(list._id)">{{list.name}}</h4>
             <h5>{{list.description}}</h5>
           </div>
           <div class="col-xs-2">
@@ -33,10 +33,13 @@
     },
     data: function () {
       return {
+        displayNewTodo: false,
         todoInfo: {
           name: "",
           description: ""
+
         }
+
       }
     },
 
@@ -55,6 +58,8 @@
       },
       deleteList(list){
         this.$store.dispatch('removeList', list)
+      },
+      toggleCreateTodo(id){
       }
     },
     computed: {
