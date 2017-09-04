@@ -78,10 +78,4 @@
     margin-top: 25px;
     margin-bottom: 25px;
   }
-  .glyphicon-plus-sign {
-    color: #5cb85c;
-  }
-  .glyphicon-remove-sign {
-    color: red;
-  }
 </style>
