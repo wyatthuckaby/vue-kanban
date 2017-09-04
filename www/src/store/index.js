@@ -76,7 +76,7 @@ var store = new vuex.Store({
       // api('boardlists/' + id)
       api(`boards/${id}/lists`)
         .then(res => {
-
+          console.log(res.data.data)
           commit('setLists', res.data.data)
         })
         .catch(err => {
@@ -152,7 +152,8 @@ var store = new vuex.Store({
     }, list){
       api.post('lists/', list)
       .then((res)=>{
-        dispatch('getLists')
+        console.log("createlist:", res)
+        dispatch('getLists', JSON.parse(res.data.data.boarId))
       })
       .catch(err => {
         commit('handleError', err)

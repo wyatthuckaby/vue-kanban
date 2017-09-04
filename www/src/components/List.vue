@@ -1,9 +1,16 @@
 <template>
   <div class="row">
-    <div class="col-xs-3 list-outer" v-for="vandetta in lists">
+    <div class="col-xs-3 list-outer" v-for="list in lists">
       <div class="my-list">
-        <h4>{{vandetta.name}}</h4>
-        <todo :listid="vandetta._id"></todo>
+        <h4>{{list.name}}</h4>
+        <h5>{{list.description}}</h5>
+        <form @sumbit.prevent="createTodo">
+          <div class="align-things">
+            <input v-model="todoInfo.name" class="form-control" placeholder="New Task" type="text">
+            <span class="glyphicon glyphicon-plus-sign"></span>
+          </div>
+        </form>
+        <todo :listid="list._id"></todo>
       </div>
     </div>
   </div>
@@ -18,14 +25,21 @@
     },
     data: function () {
       return {
+        todoInfo: {
+          name: "",
+          description: ""
+        }
       }
     },
 
     mounted() {
       //this.$store.dispatch('getBoard',this.$route.params.id)
-      this.$store.dispatch('getLists', this.$route.params.id)
+      this.$store.dispatch('getTodos', this.$route.params.id)
     },
     methods: {
+      createTodo(){
+        this.$store.dispatch('createTodos', this.todoInfo)
+      }
     },
     computed: {
       lists() {
@@ -47,5 +61,8 @@
   .list-outer {
     margin-top: 25px;
     margin-bottom: 25px;
+  }
+  .glyphicon {
+    color: #5cb85c;
   }
 </style>

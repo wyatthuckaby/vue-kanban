@@ -30,7 +30,8 @@
         clicked: false,
         listInfo: {
           name: "",
-          description: ""
+          description: "",
+          boardId: ""
         }
       }
     },
@@ -43,7 +44,9 @@
         this.clicked = !this.clicked;
       },
       createList(){
-        this.$store.dispatch('createList', this.listInfo)
+        var obj = this.listInfo;
+        obj.boardId = this.board._id
+        this.$store.dispatch('createList', JSON.parse(JSON.stringify(obj)))
       }
     },
     computed: {
