@@ -176,10 +176,11 @@ var store = new vuex.Store({
     removeList({
       commit,
       dispatch
-    }, id){
-      api.delete(`/lists/${id}`)
+    }, list){
+
+      api.delete(`/lists/${list._id}`)
       .then((res) => {
-        dispach('getLists', res.data.data.boardId)
+        dispach('getLists', list.boardId)
       })
       .catch((err) => {
         commit('handleError', err);
@@ -191,10 +192,10 @@ var store = new vuex.Store({
     removeTodo({
       commit,
       dispatch
-    }, id){
-      api.delete(`/todos/${id}`)
+    }, todo){
+      api.delete(`/todos/${todo._id}`)
       .then((res) => {
-        dispach('getTodos', res.data.data.listId)
+        dispach('getTodos', todo.listId)
       })
       .catch((err) => {
         commit('handleError', err);
@@ -206,7 +207,7 @@ var store = new vuex.Store({
       commit,
       dispatch
     }, board) {
-      api.delete('boards/' + board._id)
+      api.delete(`boards/${board._id}`)
         .then(res => {
           this.getBoards()
         })

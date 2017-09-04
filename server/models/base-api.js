@@ -1,4 +1,5 @@
 var actions = require('../config/constants').actions
+var sanitizeHtml = require('sanitize-html');
 
 module.exports = API
 
@@ -44,6 +45,9 @@ function API(model, schema) {
     }
   }
 
+
+
+
   function create(req, res, next) {
     var action = actions.create
 
@@ -83,6 +87,12 @@ function API(model, schema) {
         return next(handleResponse(action, null, error))
       })
   }
+
+
+
+
+
+  
 
   function remove(req, res, next) {
     var action = actions.remove
