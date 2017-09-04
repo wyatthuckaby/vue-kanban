@@ -177,7 +177,7 @@ var store = new vuex.Store({
       commit,
       dispatch
     }, id){
-      api.delete(`/api/lists/${id}`)
+      api.delete(`/lists/${id}`)
       .then((res) => {
         dispach('getLists', res.data.data.boardId)
       })
@@ -192,7 +192,7 @@ var store = new vuex.Store({
       commit,
       dispatch
     }, id){
-      api.delete(`/api/todos/${id}`)
+      api.delete(`/todos/${id}`)
       .then((res) => {
         dispach('getTodos', res.data.data.listId)
       })
